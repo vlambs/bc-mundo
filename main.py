@@ -1,49 +1,45 @@
-from bottle import route, run, view
+from bottle import route, run, template
 
 @route('/')
-@view("templates/default.tpl")
 def default():
-    return {"title":"Default"}
-
+    return template('home')
+    
 @route('/club')
-@view("templates/club.tpl")
-def default():
-    stri = """
-    <h2>club</h2>
-    """
-    return {"title":"Club", "body" : stri}
+def club():
+    return template('club')
 
 @route('/contact')
-@view("templates/contact.tpl")
-def default():
-    stri = """
-    <h2>contact</h2>
-    """
-    return {"title":"Contact", "body" : stri}
+def contact():
+    return template('contact')
 
 @route('/media')
-@view("templates/media.tpl")
-def default():
-    stri = """
-    <h2>media</h2>
-    """
-    return {"title":"Media", "body" : stri}
+def media():
+    return template('media')
 
 @route('/news')
-@view("templates/news.tpl")
-def default():
-    stri = """
-    <h2>news</h2>
-    """
-    return {"title":"News", "body" : stri}
+def news():
+    return template('news')
 
 @route('/teams')
-@view("templates/teams.tpl")
-def default():
-    stri = """
-    <h2>teams</h2>
-    """
-    return {"title":"Teams", "body" : stri}
+def teams():
+    teams = [
+        {
+            'name': 'Team A',
+            'members': [
+                {'name': 'Alice', 'age': 23, 'height': 1.75, 'position': 'Forward'},
+                {'name': 'Bob', 'age': 25, 'height': 1.8, 'position': 'Guard'},
+                {'name': 'Charlie', 'age': 21, 'height': 1.82, 'position': 'Center'}
+            ]
+        },
+        {
+            'name': 'Team B',
+            'members': [
+                {'name': 'Dave', 'age': 27, 'height': 1.9, 'position': 'Forward'},
+                {'name': 'Eve', 'age': 24, 'height': 1.65, 'position': 'Guard'}
+            ]
+        }
+    ]
+    return template('teams', teamsList=teams)
 
 
 run(host='localhost', port=8080, debug=True)
